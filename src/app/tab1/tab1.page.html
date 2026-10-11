@@ -5,5 +5,5 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <app-counter heading="Nové Počítadlo" />
+  <app-counter heading="Nové Počítadlo" (saved)="onSaved($event)"></app-counter>
 </ion-content>
