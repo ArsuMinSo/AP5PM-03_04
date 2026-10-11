@@ -53,9 +53,10 @@ export class CounterComponent {
     if (!name) { return; }
 
     const save = {
-      id: crypto.randomUUID(),
-      name: name,
-      value: this.count
+      id        : crypto.randomUUID(),
+      name      : name,
+      value     : this.count,
+      createdAt : new Date().toISOString()
     };
 
     this.saved.emit(save);
