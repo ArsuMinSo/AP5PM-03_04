@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonTitle, IonToolbar } from '@ionic/angular';
 
+import { CounterComponent } from '../components/counter/counter.component';
+
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -18,8 +21,10 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCon
     IonInput,
     IonTitle,
     IonToolbar,
+    CounterComponent
   ],
 })
+
 export class Tab1Page {
   counterName = '';
   count = 0;
