@@ -14,6 +14,10 @@ export class CounterService {
   readonly counters = this.countersState.asReadonly();
   readonly initialized = this.initializedState.asReadonly();
 
+  readonly total = computed(() =>
+    this.countersState().reduce((sum, counter) => sum + counter.value, 0),
+  );
+
   readonly minValue = computed(() => {
     const values = this.countersState().map((counter) => counter.value);
     return values.length === 0 ? null : Math.min(...values);
