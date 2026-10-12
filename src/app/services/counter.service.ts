@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { SavedCounter } from '../models/saved-counter';
 
@@ -13,6 +13,16 @@ export class CounterService {
 
   readonly counters = this.countersState.asReadonly();
   readonly initialized = this.initializedState.asReadonly();
+
+  readonly minValue = computed(() => {
+    const values = this.countersState().map((counter) => counter.value);
+    return values.length === 0 ? null : Math.min(...values);
+  });
+
+  readonly maxValue = computed(() => {
+    const values = this.countersState().map((counter) => counter.value);
+    return values.length === 0 ? null : Math.max(...values);
+  });
 
   initialize(): Promise<void> {
     this.initializationPromise ??= this.load();
