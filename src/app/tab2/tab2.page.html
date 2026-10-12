@@ -18,8 +18,29 @@
   } @else if (counterService.counters().length === 0) {
     <p class="state-message">Historie je zatím prázdná.</p>
   } @else {
+    <ion-searchbar
+      placeholder="Hledat podle názvu"
+      [debounce]="200"
+      (ionInput)="onSearch($event)"
+    ></ion-searchbar>
+
+    <ion-segment [value]="sortKey()" (ionChange)="onSortChange($event)">
+      <ion-segment-button value="newest">
+        <ion-label>Nejnovější</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="oldest">
+        <ion-label>Nejstarší</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="name">
+        <ion-label>Název</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="value">
+        <ion-label>Hodnota</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
     <ion-list>
-      @for (counter of counterService.counters(); track counter.id) {
+      @for (counter of visibleCounters(); track counter.id) {
         <ion-item>
           <ion-label>
             <h2>{{ counter.name }}</h2>
@@ -36,15 +57,17 @@
             Odstranit
           </ion-button>
         </ion-item>
+      } @empty {
+        <p class="state-message">Nic nenalezeno.</p>
       }
     </ion-list>
 
     <ion-button
-    color="danger"
-    (click)="clear()"
-    aria-label="Odstranit všechny záznamy"
-  >
-    Odstranit všechny záznamy
-  </ion-button>
+      color="danger"
+      (click)="confirmClear()"
+      aria-label="Odstranit všechny záznamy"
+    >
+      Odstranit všechny záznamy
+    </ion-button>
   }
 </ion-content>
